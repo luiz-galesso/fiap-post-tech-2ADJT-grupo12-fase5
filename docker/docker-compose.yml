@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  db-cliente:
+    image: postgres:latest
+    container_name: db-cliente
+    environment:
+      POSTGRES_USER: dbcliente
+      POSTGRES_PASSWORD: passcliente
+      POSTGRES_DB: db-cliente
+    ports:
+      - "5432:5432"
+    volumes:
+      - cliente-data:/var/lib/postgresql/data
+
+  db-item:
+    image: postgres:latest
+    container_name: db-item
+    environment:
+      POSTGRES_USER: dbitem
+      POSTGRES_PASSWORD: passitem
+      POSTGRES_DB: db-item
+    ports:
+      - "5433:5432"
+    volumes:
+      - item-data:/var/lib/postgresql/data
+
+  db-pagamento:
+    image: postgres:latest
+    container_name: db-pagamento
+    environment:
+      POSTGRES_USER: dbpagamento
+      POSTGRES_PASSWORD: passpagamento
+      POSTGRES_DB: db-pagamento
+    ports:
+      - "5434:5432"
+    volumes:
+      - pagamento-data:/var/lib/postgresql/data
+
+  db-carrinho:
+    image: postgres:latest
+    container_name: db-carrinho
+    environment:
+      POSTGRES_USER: dbcarrinho
+      POSTGRES_PASSWORD: passcarrinho
+      POSTGRES_DB: db-carrinho
+    ports:
+      - "5435:5432"
+    volumes:
+      - carrinho-data:/var/lib/postgresql/data
+
+  ms-cliente:
+    container_name: ms-cliente
+    build: ../ms-cliente/.
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db-cliente
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-cliente:5432/db-cliente
+      SPRING_DATASOURCE_USERNAME: dbcliente
+      SPRING_DATASOURCE_PASSWORD: passcliente
+
+  ms-item:
+    container_name: ms-item
+    build: ../ms-item/.
+    ports:
+      - "8082:8080"
+    depends_on:
+      - db-item
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-item:5432/db-item
+      SPRING_DATASOURCE_USERNAME: dbitem
+      SPRING_DATASOURCE_PASSWORD: passitem
+  
+  ms-pagamento:
+    container_name: ms-pagamento
+    build: ../ms-pagamento/.
+    ports:
+      - "8083:8080"
+    depends_on:
+      - db-pagamento
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-pagamento:5432/db-pagamento
+      SPRING_DATASOURCE_USERNAME: dbpagamento
+      SPRING_DATASOURCE_PASSWORD: passpagamento
+
+  ms-carrinho:
+    container_name: ms-carrinho
+    build: ../ms-carrinho/.
+    ports:
+      - "8084:8080"
+    depends_on:
+      - db-carrinho
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-carrinho:5432/db-carrinho
+      SPRING_DATASOURCE_USERNAME: dbcarrinho
+      SPRING_DATASOURCE_PASSWORD: passcarrinho
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8090:8080
+
+volumes:
+  cliente-data:
+  item-data:
+  pagamento-data:
+  carrinho-data:
