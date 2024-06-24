@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "nome": {
+      "type": "string"
+    },
+    "dataRegistro": {
+      "type": "string"
+    },
+    "dataNascimento": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "email",
+    "nome",
+    "dataRegistro",
+    "dataNascimento"
+  ]
+}
