@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fase5.techchallenge.fiap</groupId>
-    <artifactId>ms-cliente</artifactId>
+    <artifactId>ms-carrinho</artifactId>
     <version>1.0.0</version>
-    <name>ms-cliente</name>
-    <description>Tech Challenge - Fase 5 - Microsserviço para gerenciamento de clientes</description>
+    <name>ms-carrinho</name>
+    <description>Tech Challenge - Fase 5 - Microsserviço para gerenciamento do carrinho de compras</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -59,11 +59,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>4.1.0</version>
         </dependency>
         <!-- h2 for test -->
         <dependency>
@@ -256,7 +251,7 @@
                         <configuration>
                             <runMultipleSimulations>true</runMultipleSimulations>
                             <includes>
-                                <include>com.fase5.techchallenge.fiap.mscliente.performance.*</include>
+                                <include>com.fase5.techchallenge.fiap.mscarrinho.performance.*</include>
                             </includes>
                         </configuration>
                     </plugin>
