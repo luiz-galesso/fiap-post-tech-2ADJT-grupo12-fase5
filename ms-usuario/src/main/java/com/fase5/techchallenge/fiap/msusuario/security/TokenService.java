@@ -1,6 +1,8 @@
 package com.fase5.techchallenge.fiap.msusuario.security;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fase5.techchallenge.fiap.msusuario.entity.usuario.model.Usuario;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
@@ -48,5 +50,20 @@ public class TokenService {
     }
     private Instant genExpirationDate(){
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
+
+    public String getUserIdFromToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            DecodedJWT jwt = JWT.require(algorithm)
+                    .withIssuer("ms-usuario")
+                    .build()
+                    .verify(token.replace("Bearer ", ""));
+            return jwt.getKeyId();
+        }
+        catch (JWTVerificationException exception) {
+            return null;
+        }
     }
 }
