@@ -1,4 +1,4 @@
-package com.fase5.techchallenge.fiap.mscarrinho.configuration;
+package com.fase5.techchallenge.fiap.msusuario.configuration;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
@@ -20,9 +20,9 @@ public class OpenAPIConfiguration {
     public OpenAPI myOpenAPI() {
 
         Info info = new Info()
-                .title("MS-CARRINHO")
+                .title("MS-USUARIO")
                 .version("1.0.0")
-                .description("Microserviço para gerenciamento do carrinho de compras");
+                .description("Microserviço para gerenciamento de usuarios");
 
         return new OpenAPI().info(info);
     }

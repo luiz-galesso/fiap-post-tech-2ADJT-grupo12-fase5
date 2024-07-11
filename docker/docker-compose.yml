@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  db-cliente:
+  db-usuario:
     image: postgres:latest
-    container_name: db-cliente
+    container_name: db-usuario
     environment:
-      POSTGRES_USER: dbcliente
-      POSTGRES_PASSWORD: passcliente
-      POSTGRES_DB: db-cliente
+      POSTGRES_USER: dbusuario
+      POSTGRES_PASSWORD: passusuario
+      POSTGRES_DB: db-usuario
     ports:
       - "5432:5432"
     volumes:
-      - cliente-data:/var/lib/postgresql/data
+      - usuario-data:/var/lib/postgresql/data
 
   db-item:
     image: postgres:latest
@@ -49,17 +49,17 @@ services:
     volumes:
       - carrinho-data:/var/lib/postgresql/data
 
-  ms-cliente:
-    container_name: ms-cliente
-    build: ../ms-cliente/.
+  ms-usuario:
+    container_name: ms-usuario
+    build: ../ms-usuario/.
     ports:
       - "8081:8080"
     depends_on:
-      - db-cliente
+      - db-usuario
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db-cliente:5432/db-cliente
-      SPRING_DATASOURCE_USERNAME: dbcliente
-      SPRING_DATASOURCE_PASSWORD: passcliente
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-usuario:5432/db-usuario
+      SPRING_DATASOURCE_USERNAME: dbusuario
+      SPRING_DATASOURCE_PASSWORD: passusuario
 
   ms-item:
     container_name: ms-item
@@ -105,7 +105,7 @@ services:
       - 8090:8080
 
 volumes:
-  cliente-data:
+  usuario-data:
   item-data:
   pagamento-data:
   carrinho-data:

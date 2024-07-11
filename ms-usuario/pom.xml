@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fase5.techchallenge.fiap</groupId>
-    <artifactId>ms-carrinho</artifactId>
+    <artifactId>ms-usuario</artifactId>
     <version>1.0.0</version>
-    <name>ms-carrinho</name>
-    <description>Tech Challenge - Fase 5 - Microsserviço para gerenciamento do carrinho de compras</description>
+    <name>ms-usuario</name>
+    <description>Tech Challenge - Fase 5 - Microsserviço para gerenciamento de usuários</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -30,6 +30,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -59,10 +63,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
@@ -103,12 +103,6 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>5.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version> <!-- Versão mais recente disponível -->
-            <scope>test</scope>
         </dependency>
         <!-- cucumber -->
         <dependency>
@@ -162,6 +156,12 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.10.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
@@ -249,24 +249,6 @@
             </build>
         </profile>
 
-        <profile>
-            <id>performance-test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.gatling</groupId>
-                        <artifactId>gatling-maven-plugin</artifactId>
-                        <version>4.3.7</version>
-                        <configuration>
-                            <runMultipleSimulations>true</runMultipleSimulations>
-                            <includes>
-                                <include>com.fase5.techchallenge.fiap.mscarrinho.performance.*</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
 </project>
