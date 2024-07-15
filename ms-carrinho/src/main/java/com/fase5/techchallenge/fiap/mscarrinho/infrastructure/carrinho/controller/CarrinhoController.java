@@ -1,11 +1,15 @@
 package com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller;
 
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.AdicionaQuantideItemDTO;
+import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.RealizaPagamentoDTO;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.RemoveItemDTO;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.RemoveQuantidadeItemDTO;
+import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.feign.PagamentoClient;
+import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.feign.dto.PagamentoDTO;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.util.DefaultResponse;
 import com.fase5.techchallenge.fiap.mscarrinho.security.TokenService;
 import com.fase5.techchallenge.fiap.mscarrinho.usecase.carrinho.*;
+import com.fase5.techchallenge.fiap.mscarrinho.usecase.pagamento.RealizaPagamento;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +39,8 @@ public class CarrinhoController {
     private final LimpaCarrinho limpaCarrinho;
 
     private final TokenService tokenService;
+
+    private final RealizaPagamento realizaPagamento;
 
     @Operation(summary = "Busca o carrinho pelo id do usuário", description = "Serviço utilizado para buscar o carrinho pelo id do usuário.")
     @SecurityRequirement(name = "Bearer Authentication")
@@ -89,11 +95,15 @@ public class CarrinhoController {
     @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping(value = "/pagamento", produces = "application/json")
     @Transactional
-    public ResponseEntity<?> pagamento(HttpServletRequest request) {
+    public ResponseEntity<?> pagamento(HttpServletRequest request, @RequestBody RealizaPagamentoDTO realizaPagamentoDTO) {
         String idUsuario = tokenService.getUserIdFromToken(request);
-        /*
-        LOGICA DE PAGAMENTO
-         */
+        var carrinho = obtemCarrinhoPeloId.execute(idUsuario);
+        try {
+            realizaPagamento.execute(request.getHeader("Authorization"), new PagamentoDTO(carrinho.getValorTotal(), realizaPagamentoDTO.numeroCartao(), realizaPagamentoDTO.validadeCartao(),realizaPagamentoDTO.nomeCartao(),realizaPagamentoDTO.cvvCartao()));
+        } catch(Exception ex)
+        {
+            return new ResponseEntity<>(new DefaultResponse(Instant.now(),"KO","Não foi possível realizar o pagamento."), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         limpaCarrinho.execute(idUsuario);
         return new ResponseEntity<>(new DefaultResponse(Instant.now(),"OK","Pagamento Efetuado com sucesso."), HttpStatus.OK);
     }

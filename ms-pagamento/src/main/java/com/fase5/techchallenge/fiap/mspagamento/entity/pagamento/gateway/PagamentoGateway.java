@@ -5,6 +5,7 @@ import com.fase5.techchallenge.fiap.mspagamento.infrastructure.pagamento.reposit
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -17,4 +18,11 @@ public class PagamentoGateway {
         return this.pagamentoRepository.findById(id);
     }
 
+    public Pagamento create(Pagamento pagamento) {
+        return this.pagamentoRepository.save(pagamento);
+    }
+
+    public List<Pagamento> findByUsuario(String idUsuario) {
+        return pagamentoRepository.findByIdUsuario(idUsuario);
+    }
 }
