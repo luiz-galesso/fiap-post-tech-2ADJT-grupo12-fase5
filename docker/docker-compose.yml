@@ -60,6 +60,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-usuario:5432/db-usuario
       SPRING_DATASOURCE_USERNAME: dbusuario
       SPRING_DATASOURCE_PASSWORD: passusuario
+      PORT: 8080
+      JWT_SECRET: pZ8Pst0rRsG0ylUsTSYTm97rD3P3LY3sJsIHXvG2ug4hCR15idue66UDXuq3dhBI
 
   ms-item:
     container_name: ms-item
@@ -72,6 +74,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-item:5432/db-item
       SPRING_DATASOURCE_USERNAME: dbitem
       SPRING_DATASOURCE_PASSWORD: passitem
+      PORT: 8080
+      JWT_SECRET: pZ8Pst0rRsG0ylUsTSYTm97rD3P3LY3sJsIHXvG2ug4hCR15idue66UDXuq3dhBI
   
   ms-pagamento:
     container_name: ms-pagamento
@@ -84,6 +88,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-pagamento:5432/db-pagamento
       SPRING_DATASOURCE_USERNAME: dbpagamento
       SPRING_DATASOURCE_PASSWORD: passpagamento
+      PORT: 8080
+      JWT_SECRET: pZ8Pst0rRsG0ylUsTSYTm97rD3P3LY3sJsIHXvG2ug4hCR15idue66UDXuq3dhBI
 
   ms-carrinho:
     container_name: ms-carrinho
@@ -96,6 +102,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db-carrinho:5432/db-carrinho
       SPRING_DATASOURCE_USERNAME: dbcarrinho
       SPRING_DATASOURCE_PASSWORD: passcarrinho
+      PORT: 8080
+      JWT_SECRET: pZ8Pst0rRsG0ylUsTSYTm97rD3P3LY3sJsIHXvG2ug4hCR15idue66UDXuq3dhBI
 
   adminer:
     image: adminer
