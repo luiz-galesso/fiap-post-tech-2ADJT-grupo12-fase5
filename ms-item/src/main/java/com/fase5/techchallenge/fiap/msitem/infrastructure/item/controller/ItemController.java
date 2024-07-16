@@ -59,7 +59,7 @@ public class ItemController {
     @Operation(summary = "Busca o item pelo Id", description = "Serviço utilizado para buscar o item pelo Id.")
     @GetMapping(value = "/{id}", produces = "application/json")
     @SecurityRequirement(name = "Bearer Authentication")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @Transactional
     public ResponseEntity<?> findById(@PathVariable Long id) {
         var item = obtemItemPeloId.execute(id);

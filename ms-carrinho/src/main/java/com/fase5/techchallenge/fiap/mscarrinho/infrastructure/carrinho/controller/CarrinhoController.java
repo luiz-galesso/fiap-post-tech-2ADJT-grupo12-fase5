@@ -4,7 +4,6 @@ import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controlle
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.RealizaPagamentoDTO;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.RemoveItemDTO;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.carrinho.controller.dto.RemoveQuantidadeItemDTO;
-import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.feign.PagamentoClient;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.feign.dto.PagamentoDTO;
 import com.fase5.techchallenge.fiap.mscarrinho.infrastructure.util.DefaultResponse;
 import com.fase5.techchallenge.fiap.mscarrinho.security.TokenService;
@@ -58,7 +57,7 @@ public class CarrinhoController {
     @Transactional
     public ResponseEntity<?> adicionaQuantidadeItem(HttpServletRequest request, @RequestBody AdicionaQuantideItemDTO adicionaQuantidadeItemDTO) {
         String idUsuario = tokenService.getUserIdFromToken(request);
-        var carrinho = adicionaQuantidadeItem.execute(idUsuario, adicionaQuantidadeItemDTO.idItem(), adicionaQuantidadeItemDTO.quantidade(), adicionaQuantidadeItemDTO.valorUnitario());
+        var carrinho = adicionaQuantidadeItem.execute(request.getHeader("Authorization"), idUsuario, adicionaQuantidadeItemDTO.idItem(), adicionaQuantidadeItemDTO.quantidade());
         return new ResponseEntity<>(carrinho, HttpStatus.OK);
     }
 

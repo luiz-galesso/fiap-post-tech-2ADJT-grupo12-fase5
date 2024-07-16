@@ -7,10 +7,8 @@ import com.fase5.techchallenge.fiap.mscarrinho.usecase.exception.BussinessErrorE
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

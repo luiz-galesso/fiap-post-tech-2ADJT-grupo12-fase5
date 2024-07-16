@@ -105,6 +105,7 @@ services:
       PORT: 8080
       JWT_SECRET: pZ8Pst0rRsG0ylUsTSYTm97rD3P3LY3sJsIHXvG2ug4hCR15idue66UDXuq3dhBI
       MS_PAGAMENTO_URL: http://ms-pagamento:8080/ms-pagamento/
+      MS_ITEM_URL: http://ms-item:8080/ms-item/
 
   adminer:
     image: adminer
